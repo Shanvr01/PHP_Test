@@ -1,7 +1,7 @@
 <?php
-
+	
 	require_once('includes/database.php');
-
+	include('/header.php');
 	$result = $conn->query('SELECT * FROM customer');
 
 	if(isset($_POST['btn-save']))
@@ -18,7 +18,8 @@
 
 		if ($sql) 
 		{
-		    echo "New record created successfully";
+			header('location:index.php?updated-successfully');
+		   	
 		} else 
 		{
 		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -27,7 +28,8 @@
 
 ?>
 
-<table>
+
+	<table>
 	<tbody>
 		<?php if ($result->num_rows > 0): ?>
 		<tr>
@@ -69,32 +71,39 @@
 
 <h2>Add customer</h2>
 
-<div class="">
-	<form method="post">
-		<p>
-			<!-- <label for="name">First Name:</label> -->
-			<input placeholder="name" type="text" name="name" id="name">
-		</p>
-		<p>
-			<!-- <label for="surname">Last Name:</label> -->
-			<input placeholder="surname" type="text" name="surname" id="surname">
-		</p>
-		<p>
-			<!-- <label for="contact_number">Contact_number:</label> -->
-			<input placeholder="contact_number" type="text" name="contact_number" id="contact_number">
-		</p>
-		<p>
-			<!-- <label for="email">Email:</label> -->
-			<input placeholder="email" type="email" name="email" id="email">
-		</p>
-		<p>
-			<!-- <label for="sa_id_number">sa_id_number:</label> -->
-			<input placeholder="sa_id_number" type="text" name="sa_id_number" id="sa_id_number">
-		</p>
-		<p>
-			<!-- <label for="address">Address:</label> -->
-			<input placeholder="Address" type="text" name="address" id="address">
-		</p>
-		<input type="submit" name="btn-save" value="Add customer">
-	</form>
-</div>
+
+<form method="post" data-parsley-validate>
+	<p>
+		<!-- <label for="name">First Name:</label> -->
+		<input placeholder="Name" type="text" name="name" id="name">
+	</p>
+	<p>
+		<!-- <label for="surname">Last Name:</label> -->
+		<input placeholder="Surname" type="text" name="surname" id="surname" >
+	</p>
+	<p>
+		<!-- <label for="contact_number">Contact_number:</label> -->
+		<input placeholder="Contact Number" type="text" name="contact_number" id="contact_number">
+	</p>
+	<p>
+		<!-- <label for="email">Email:</label> -->
+		<input placeholder="Email" type="email" name="email" id="email" data-parsley-type="email">
+	</p>
+	<p>
+		<!-- <label for="sa_id_number">sa_id_number:</label> -->
+		<input placeholder="Sa ID Number" type="text" name="sa_id_number" id="sa_id_number">
+	</p>
+	<p>
+		<!-- <label for="address">Address:</label> -->
+		<input placeholder="Address" type="text" name="address" id="address">
+	</p>
+	<input type="submit" name="btn-save" value="Add customer">
+</form>
+
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="/js/parsley.js"></script>
+<script type="text/javascript">
+	$('form').parsley();
+</script>
+
+
