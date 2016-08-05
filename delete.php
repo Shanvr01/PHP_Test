@@ -6,7 +6,6 @@
 	$id = $_GET['id'];
 	$result = $conn->query("SELECT * FROM customer WHERE id=$id");
 	$row = $result->fetch_assoc();
-
 	
 		$delete = "DELETE FROM customer WHERE id='$id'";
 
@@ -17,6 +16,4 @@
 		{
 		     header('location:index.php?delete-ERROR');
 		}
-
-
 ?>

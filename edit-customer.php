@@ -1,10 +1,10 @@
 <?php 
 
-	require_once('includes/database.php');
+	require_once('/database.php');
 	include('/header.php');
 	
 	$id = $_GET['id'];
-	$result = $conn->query("SELECT * FROM customer WHERE id=$id");
+	$result = $db->fetch("SELECT * FROM customer WHERE id=$id");
 	$row = $result->fetch_assoc();
 
 	if(!empty($_POST['btn-edit']))
@@ -14,18 +14,17 @@
         email='".$_POST['email']."', sa_id_number='".$_POST['sa_id_number']."',
         address='".$_POST['address']."' WHERE id='".$_POST['id']."'";
 
-		if ($conn->query($sql) === TRUE) 
+        var_dump($sql);
+		if ($db->update($sql) === TRUE) 
 		{
-		    header('location:index.php?updated-successfully');
-		    echo "Record updated successfully";
+		    header('location:index.php?updated-successfully');		   
 		} else 
 		{
-		    echo "Error updating record: " . $conn->error;
+		    echo "Error updating record: " . $db->error;
 		}
 	}
 
 ?>
-
 	<form method="post">
 		<input type="hidden" name="id" id="id" value="<?php echo $row['id'] ?>">
 		<p>
